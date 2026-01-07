@@ -5,28 +5,42 @@
 [![Latest Version](https://img.shields.io/github/v/release/bahleel/bahleel)](https://github.com/bahleel/bahleel/releases)
 [![License](https://img.shields.io/github/license/bahleel/bahleel)](LICENSE)
 
-🕷️ Framework PHP untuk menambang data dari internet. 
-✅ Ingat tambang ingat bahleel.
+⛏️ **Your complete data mining toolkit for the web.**  
+🕷️ Extract valuable data like a pro miner.  
+✅ **Ingat tambang, ingat Bahleel.**
 
-> **Built with** [RoachPHP](https://roach-php.dev/) + [Laravel Zero](https://laravel-zero.com/)
+> *Strike while the data is rich!* Built with [RoachPHP](https://roach-php.dev/) + [Laravel Zero](https://laravel-zero.com/)
 
-## ✨ Features
+---
 
-- 🎯 **Interactive Spider Generator** - Buat spider dengan wizard interaktif
-- 💾 **Auto SQLite Storage** - Data otomatis tersimpan di database
-- 🔄 **Duplicate Detection** - Filter otomatis untuk data duplikat
-- 📊 **Export Formats** - Export ke CSV, JSON, dan custom format
-- 🔌 **Middleware Support** - Proxy, JavaScript execution, cookies, dll
-- 📝 **Logging & Statistics** - Track setiap spider run dengan detail
-- 🎨 **Template Generator** - Generate middleware, processor, exporter
+## 💎 What Can You Mine?
 
-## 📋 Requirements
+✅ E-commerce products & prices  
+✅ News articles & content  
+✅ Real estate listings  
+✅ Job postings  
+✅ Social media data  
+✅ Market research insights  
+✅ **Anything on the web!**
+
+## ⛏️ Mining Equipment (Features)
+
+- 🎯 **Interactive Spider Generator** - Forge your scrapers with an intuitive wizard
+- 💾 **Auto SQLite Storage** - All mined data stored safely in your vault
+- 🔄 **Duplicate Detection** - Smart filtering keeps only the purest ore
+- 📊 **Export Formats** - Ship your findings as CSV, JSON, or custom formats
+- 🔌 **Middleware Support** - Proxy tunnels, JavaScript excavators, and more
+- 📝 **Logging & Statistics** - Track every dig with detailed reports
+- 🎨 **Template Generator** - Create custom tools for your mining operation
+- 🧪 **27 Tests** - Every tool tested for reliability
+
+## 🏭 Setting Up Your Mining Operation
+
+### Requirements
 
 - PHP 8.2 or higher
 - Composer
 - SQLite (sudah termasuk dalam PHP)
-
-## 🚀 Installation
 
 ```bash
 git clone https://github.com/bahleel/bahleel.git
@@ -35,24 +49,22 @@ composer install
 php bahleel migrate
 ```
 
-## 📖 Quick Start
+## ⚡ Quick Start - Your First Excavation
 
-### 1. Buat Spider Pertama
+### 1. Create Your First Spider (Mining Tool)
 
 ```bash
 php bahleel make:spider
 ```
 
-Wizard interaktif akan memandu Anda:
-- Nama spider
-- Start URLs
+Interactive wizard akan memandu Anda:
+- Spider name (your mining tool)
+- Start URLs (where to dig)
 - Concurrency & delay settings
 - Middleware options (proxy, JavaScript, etc.)
-- Field extraction (CSS selectors)
+- Field extraction (what to mine)
 
-### 2. Run Spider
-
-```bash
+### 2. Start the Excavation
 php bahleel run:spider MySpider
 ```
 
@@ -70,36 +82,35 @@ php bahleel export:csv MySpider
 
 ## 🎯 Command Reference
 
-### Spider Management
+### Mining Tools Management
 
 ```bash
-# Buat spider baru
+# Create new spider (mining tool)
 php bahleel make:spider
 
-# List semua spiders
+# List all available spiders
 php bahleel spider:list
 
-# Run spider
+# Run spider to start mining
 php bahleel run:spider {name}
 ```
 
-### Data Management
-
 ```bash
-# Show scraped data
+# View mined data
 php bahleel data:show {spider} --limit=10
+
+# Clear data for a specific spider
+php bahleel data:clear {spider}
 ```
-
-### Export
-
 ```bash
-# Export ke CSV
+# Ship findings as CSV
 php bahleel export:csv {spider} --output=path/to/file.csv
 
-# Generate custom exporter
+# Create custom exporter
 php bahleel make:exporter
 ```
 
+### Tool Generators
 ### Generators
 
 ```bash
@@ -118,28 +129,28 @@ php bahleel make:exporter
 
 ## 📁 Project Structure
 
+```Mining Operation Structure
+
 ```
 bahleel/
 ├── app/
-│   ├── Commands/          # CLI commands
-│   ├── Models/            # Database models
-│   ├── Services/          # Business logic
-│   ├── ItemProcessors/    # RoachPHP processors
-│   └── Exporters/         # Data exporters
-├── spiders/               # Generated spiders
-├── middlewares/           # Generated middlewares
-├── processors/            # Generated processors
-├── exporters/             # Generated exporters
+│   ├── Commands/          # CLI commands (control center)
+│   ├── Models/            # Database models (data vault)
+│   ├── Services/          # Business logic (processing plant)
+│   ├── ItemProcessors/    # Data processors (refineries)
+│   └── Exporters/         # Export tools (shipping dept)
+├── spiders/               # Your mining tools
+├── middlewares/           # Request/response handlers
+├── processors/            # Custom data processors
+├── exporters/             # Custom exporters
 ├── config/
-│   ├── bahleel.php        # Main config
-│   └── database.php       # Database config
+│   ├── bahleel.php        # Main configuration
+│   └── database.php       # Data vault settings
 ├── database/
 │   ├── migrations/        # Database schema
-│   └── database.sqlite    # SQLite database
+│   └── database.sqlite    # Your data vault
 └── storage/
-    └── exports/           # Exported files
-```
-
+    └── exports/           # Exported finding
 ## ⚙️ Configuration
 
 Edit `.env` untuk konfigurasi:
@@ -223,19 +234,17 @@ class ExampleSpider extends BasicSpider
 }
 ```
 
-## 🐛 Debugging
+## � Debugging Your Excavation
 
-Enable verbose output:
+Enable verbose output to see every detail:
 
 ```bash
 php bahleel run:spider MySpider -v
 ```
 
-## 🔐 Proxy & JavaScript
+### Proxy Tunnels
 
-### Menggunakan Proxy
-
-Edit spider atau set di config:
+Use proxies to access restricted areas:
 
 ```php
 public array $downloaderMiddleware = [
@@ -247,9 +256,9 @@ public array $downloaderMiddleware = [
 ];
 ```
 
-### Enable JavaScript
+### JavaScript Excavators
 
-Requires Puppeteer:
+For sites requiring JavaScript execution:
 
 ```bash
 npm install -g puppeteer
@@ -348,3 +357,6 @@ For issues and questions, please use the [GitHub issue tracker](https://github.c
 
 Made with ❤️ by Bahleel Team
 
+⛏️ **Happy Mining!** Strike while the data is rich.
+
+Made with ❤️ by Bahleel Team - *Data Miners Since 2026*
