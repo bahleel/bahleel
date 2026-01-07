@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "illuminate/database": "^12.17",
         "laravel-zero/framework": "^12.0.2",
         "roach-php/core": "^3.2"
