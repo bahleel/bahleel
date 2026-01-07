@@ -9,9 +9,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/github/license/bahleel/bahleel" alt="License"></a>
 </p>
 
-⛏️ **Your complete data mining toolkit for the web.**  
-🕷️ Extract valuable data like a pro miner.  
-✅ **Ingat tambang, ingat Bahleel.**
+✅ Bahleel adalah **Framework PHP untuk menambang data dari internet**. Ingat tambang, ingat Bahleel.
 
 > *Strike while the data is rich!* Built with [RoachPHP](https://roach-php.dev/) + [Laravel Zero](https://laravel-zero.com/)
 
