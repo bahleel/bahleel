@@ -31,7 +31,8 @@
 # Exports
 /exports
 *.csv
-*.json
+/exports/*.json
+/storage/exports/*.json
 *.xml
 
 # Environment
