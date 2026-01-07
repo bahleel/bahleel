@@ -260,6 +260,77 @@ public array $downloaderMiddleware = [
 ];
 ```
 
+### Custom Cookies
+
+Untuk menggunakan custom cookies atau cookie file:
+
+**Option 1: Set cookies langsung di spider**
+
+```php
+use RoachPHP\Http\Request;
+
+protected function initialRequests(): iterable
+{
+    yield new Request(
+        'GET',
+        'https://example.com',
+        options: [
+            'cookies' => [
+                'session_id' => 'your-session-value',
+                'auth_token' => 'your-auth-token'
+            ]
+        ]
+    );
+}
+```
+
+**Option 2: Load cookies dari file**
+
+```php
+protected function initialRequests(): iterable
+{
+    $cookies = json_decode(file_get_contents('cookies.json'), true);
+    
+    yield new Request(
+        'GET',
+        'https://example.com',
+        options: ['cookies' => $cookies]
+    );
+}
+```
+
+**Option 3: Custom Cookie Middleware**
+
+Buat middleware untuk apply cookies ke semua requests:
+
+```bash
+php bahleel make:middleware CookieMiddleware --type=request
+```
+
+Kemudian edit middleware:
+
+```php
+public function handleRequest(Request $request): Request
+{
+    $cookies = [
+        'session_id' => 'value',
+        'user_token' => 'value'
+    ];
+    
+    return $request->withOptions([
+        'cookies' => $cookies
+    ]);
+}
+```
+
+Add ke spider:
+
+```php
+public array $downloaderMiddleware = [
+    \Middlewares\CookieMiddleware::class,
+];
+```
+
 ### JavaScript Excavators
 
 For sites requiring JavaScript execution:
