@@ -129,8 +129,6 @@ php bahleel make:exporter
 
 ## 📁 Project Structure
 
-```Mining Operation Structure
-
 ```
 bahleel/
 ├── app/
@@ -150,7 +148,9 @@ bahleel/
 │   ├── migrations/        # Database schema
 │   └── database.sqlite    # Your data vault
 └── storage/
-    └── exports/           # Exported finding
+    └── exports/           # Exported findings
+```
+
 ## ⚙️ Configuration
 
 Edit `.env` untuk konfigurasi:
