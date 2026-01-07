@@ -3,7 +3,6 @@
 namespace App\Commands\Data;
 
 use App\Models\ScrapedItem;
-use App\Models\SpiderRun;
 use LaravelZero\Framework\Commands\Command;
 
 use function Laravel\Prompts\select;
@@ -11,13 +10,14 @@ use function Laravel\Prompts\select;
 class ShowDataCommand extends Command
 {
     protected $signature = 'data:show {spider? : Spider name} {--limit=10 : Number of items to show}';
+
     protected $description = 'Show scraped data from database';
 
     public function handle(): int
     {
         $spiderName = $this->argument('spider');
 
-        if (!$spiderName) {
+        if (! $spiderName) {
             $spiders = ScrapedItem::select('spider_name')
                 ->distinct()
                 ->pluck('spider_name')
@@ -25,6 +25,7 @@ class ShowDataCommand extends Command
 
             if (empty($spiders)) {
                 $this->warn('No data found in database.');
+
                 return self::SUCCESS;
             }
 
@@ -43,6 +44,7 @@ class ShowDataCommand extends Command
 
         if ($items->isEmpty()) {
             $this->warn("No data found for spider: {$spiderName}");
+
             return self::SUCCESS;
         }
 
@@ -50,7 +52,7 @@ class ShowDataCommand extends Command
         $this->newLine();
 
         foreach ($items as $index => $item) {
-            $this->info("Item #" . ($index + 1));
+            $this->info('Item #'.($index + 1));
             $this->table(
                 ['Field', 'Value'],
                 collect($item->data)->map(fn ($value, $key) => [$key, $value])->toArray()

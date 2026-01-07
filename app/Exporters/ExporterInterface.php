@@ -9,8 +9,8 @@ interface ExporterInterface
     /**
      * Export data to the specified format.
      *
-     * @param Collection $data The data to export
-     * @param string $outputPath The output file path
+     * @param  Collection  $data  The data to export
+     * @param  string  $outputPath  The output file path
      * @return bool Success status
      */
     public function export(Collection $data, string $outputPath): bool;

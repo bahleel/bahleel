@@ -32,7 +32,8 @@ class ScrapedItem extends Model
      */
     public static function generateHash(array $data, ?string $url = null): string
     {
-        $content = json_encode($data) . ($url ?? '');
+        $content = json_encode($data).($url ?? '');
+
         return hash('sha256', $content);
     }
 }

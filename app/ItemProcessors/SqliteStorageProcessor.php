@@ -13,6 +13,7 @@ class SqliteStorageProcessor implements ItemProcessorInterface
     use Configurable;
 
     protected ?int $spiderRunId = null;
+
     protected string $spiderName = '';
 
     private array $defaultOptions = [
@@ -26,13 +27,13 @@ class SqliteStorageProcessor implements ItemProcessorInterface
     public function processItem(ItemInterface $item): ItemInterface
     {
         $data = $item->all();
-        
+
         // Get URL from item or request
         $url = $data['url'] ?? null;
         unset($data['url']); // Remove URL from data array
 
         // Get spider run ID
-        $spiderRunId = $this->option('spider_run_id') 
+        $spiderRunId = $this->option('spider_run_id')
             ?? $this->getOrCreateSpiderRun($this->option('spider_name'));
 
         // Generate hash for duplicate detection
@@ -84,7 +85,7 @@ class SqliteStorageProcessor implements ItemProcessorInterface
             ->latest()
             ->first();
 
-        if (!$run) {
+        if (! $run) {
             $run = SpiderRun::create([
                 'spider_name' => $spiderName,
                 'status' => 'running',

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('url')->nullable();
             $table->string('hash')->unique();
             $table->timestamps();
-            
+
             $table->index('spider_name');
             $table->index('spider_run_id');
         });

@@ -7,6 +7,7 @@ use LaravelZero\Framework\Commands\Command;
 class ListBahleelCommandsCommand extends Command
 {
     protected $signature = 'list';
+
     protected $description = 'List all Bahleel commands';
 
     public function handle(): int

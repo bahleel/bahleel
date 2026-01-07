@@ -8,6 +8,7 @@ use LaravelZero\Framework\Commands\Command;
 class ListSpidersCommand extends Command
 {
     protected $signature = 'spider:list';
+
     protected $description = 'List all available spiders';
 
     public function handle(SpiderManager $spiderManager): int
@@ -17,6 +18,7 @@ class ListSpidersCommand extends Command
         if (empty($spiders)) {
             $this->warn('No spiders found.');
             $this->comment('Create one with: php bahleel make:spider');
+
             return self::SUCCESS;
         }
 
@@ -30,7 +32,7 @@ class ListSpidersCommand extends Command
                 $spider,
                 $info['has_middleware'] ? '✓' : '✗',
                 $info['has_processors'] ? '✓' : '✗',
-                round($info['size'] / 1024, 2) . ' KB',
+                round($info['size'] / 1024, 2).' KB',
             ];
         }
 

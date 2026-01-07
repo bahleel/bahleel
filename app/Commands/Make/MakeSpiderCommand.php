@@ -9,13 +9,13 @@ use LaravelZero\Framework\Commands\Command;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\multiselect;
-use function Laravel\Prompts\text;
-use function Laravel\Prompts\select;
 use function Laravel\Prompts\table;
+use function Laravel\Prompts\text;
 
 class MakeSpiderCommand extends Command
 {
     protected $signature = 'make:spider {name? : The name of the spider}';
+
     protected $description = 'Create a new spider for web scraping';
 
     public function handle(SpiderManager $spiderManager, TemplateGenerator $generator): int
@@ -31,6 +31,7 @@ class MakeSpiderCommand extends Command
         // Check if spider already exists
         if ($spiderManager->exists($name)) {
             $this->error("Spider '{$name}' already exists!");
+
             return self::FAILURE;
         }
 
@@ -50,8 +51,8 @@ class MakeSpiderCommand extends Command
         $concurrency = (int) text(
             label: 'Concurrency (concurrent requests)',
             default: config('bahleel.concurrency', 2),
-            validate: fn ($value) => is_numeric($value) && $value > 0 
-                ? null 
+            validate: fn ($value) => is_numeric($value) && $value > 0
+                ? null
                 : 'Must be a positive number',
         );
 
@@ -59,8 +60,8 @@ class MakeSpiderCommand extends Command
         $requestDelay = (int) text(
             label: 'Request delay (seconds)',
             default: config('bahleel.request_delay', 1),
-            validate: fn ($value) => is_numeric($value) && $value >= 0 
-                ? null 
+            validate: fn ($value) => is_numeric($value) && $value >= 0
+                ? null
                 : 'Must be 0 or greater',
         );
 
@@ -105,7 +106,7 @@ class MakeSpiderCommand extends Command
         if ($createProcessor) {
             $this->info('Define fields to extract (CSS selectors)');
             $addMore = true;
-            
+
             while ($addMore) {
                 $fieldName = text(
                     label: 'Field name',
@@ -113,7 +114,7 @@ class MakeSpiderCommand extends Command
                     required: false,
                 );
 
-                if (!$fieldName) {
+                if (! $fieldName) {
                     break;
                 }
 
@@ -143,7 +144,7 @@ class MakeSpiderCommand extends Command
         $generator->save($spiderPath, $spiderContent);
 
         $this->newLine();
-        $this->info("✓ Spider created successfully!");
+        $this->info('✓ Spider created successfully!');
         $this->newLine();
 
         // Show summary
@@ -154,14 +155,14 @@ class MakeSpiderCommand extends Command
                 ['Path', $spiderPath],
                 ['Start URLs', implode(', ', $startUrls)],
                 ['Concurrency', $concurrency],
-                ['Request Delay', $requestDelay . 's'],
-                ['Middleware', count($downloaderMiddleware) . ' configured'],
-                ['Fields', count($fields) . ' defined'],
+                ['Request Delay', $requestDelay.'s'],
+                ['Middleware', count($downloaderMiddleware).' configured'],
+                ['Fields', count($fields).' defined'],
             ]
         );
 
         $this->newLine();
-        $this->comment("Run your spider with:");
+        $this->comment('Run your spider with:');
         $this->line("  php bahleel run:spider {$name}");
 
         return self::SUCCESS;

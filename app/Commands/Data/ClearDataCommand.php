@@ -12,6 +12,7 @@ use function Laravel\Prompts\select;
 class ClearDataCommand extends Command
 {
     protected $signature = 'data:clear {spider? : Spider name} {--all : Clear all data}';
+
     protected $description = 'Clear scraped data from database';
 
     public function handle(): int
@@ -22,7 +23,7 @@ class ClearDataCommand extends Command
 
         $spiderName = $this->argument('spider');
 
-        if (!$spiderName) {
+        if (! $spiderName) {
             $spiders = ScrapedItem::select('spider_name')
                 ->distinct()
                 ->pluck('spider_name')
@@ -30,6 +31,7 @@ class ClearDataCommand extends Command
 
             if (empty($spiders)) {
                 $this->warn('No data found in database.');
+
                 return self::SUCCESS;
             }
 
@@ -57,6 +59,7 @@ class ClearDataCommand extends Command
 
         if ($itemsCount === 0) {
             $this->warn("No data found for spider: {$spiderName}");
+
             return self::SUCCESS;
         }
 
@@ -65,8 +68,9 @@ class ClearDataCommand extends Command
             default: false,
         );
 
-        if (!$confirmed) {
+        if (! $confirmed) {
             $this->info('Operation cancelled.');
+
             return self::SUCCESS;
         }
 
@@ -91,6 +95,7 @@ class ClearDataCommand extends Command
 
         if ($itemsCount === 0) {
             $this->warn('No data found in database.');
+
             return self::SUCCESS;
         }
 
@@ -99,8 +104,9 @@ class ClearDataCommand extends Command
             default: false,
         );
 
-        if (!$confirmed) {
+        if (! $confirmed) {
             $this->info('Operation cancelled.');
+
             return self::SUCCESS;
         }
 
@@ -108,7 +114,7 @@ class ClearDataCommand extends Command
         ScrapedItem::truncate();
         SpiderRun::truncate();
 
-        $this->info("✓ Cleared all data from database");
+        $this->info('✓ Cleared all data from database');
         $this->comment("- {$itemsCount} items deleted");
         $this->comment("- {$runsCount} spider runs deleted");
 

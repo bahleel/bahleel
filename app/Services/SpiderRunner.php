@@ -2,14 +2,15 @@
 
 namespace App\Services;
 
-use App\Models\SpiderRun;
 use App\Models\SpiderLog;
+use App\Models\SpiderRun;
 use RoachPHP\Roach;
 use RoachPHP\Spider\Configuration\Overrides;
 
 class SpiderRunner
 {
     protected SpiderManager $spiderManager;
+
     protected SpiderRun $currentRun;
 
     public function __construct(SpiderManager $spiderManager)
@@ -24,7 +25,7 @@ class SpiderRunner
     {
         $spiderClass = $this->spiderManager->load($name);
 
-        if (!$spiderClass) {
+        if (! $spiderClass) {
             throw new \Exception("Spider '{$name}' not found");
         }
 
@@ -53,7 +54,7 @@ class SpiderRunner
 
             $this->currentRun->calculateDuration();
 
-            SpiderLog::info($this->currentRun->id, "Spider completed successfully", [
+            SpiderLog::info($this->currentRun->id, 'Spider completed successfully', [
                 'items_count' => count($items),
             ]);
 
@@ -67,7 +68,7 @@ class SpiderRunner
 
             $this->currentRun->calculateDuration();
 
-            SpiderLog::error($this->currentRun->id, "Spider failed: " . $e->getMessage(), [
+            SpiderLog::error($this->currentRun->id, 'Spider failed: '.$e->getMessage(), [
                 'exception' => get_class($e),
                 'trace' => $e->getTraceAsString(),
             ]);

@@ -1,11 +1,9 @@
 <?php
 
 use App\Services\TemplateGenerator;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\View;
 
 beforeEach(function () {
-    $this->generator = new TemplateGenerator();
+    $this->generator = new TemplateGenerator;
 });
 
 test('template generator can generate spider content', function () {
@@ -17,7 +15,7 @@ test('template generator can generate spider content', function () {
         'itemProcessors' => [],
         'fields' => [],
     ]);
-    
+
     expect($content)->toContain('class TestSpider')
         ->and($content)->toContain('extends BasicSpider')
         ->and($content)->toContain('https://example.com');
@@ -32,7 +30,7 @@ test('template generator includes start urls in spider', function () {
         'itemProcessors' => [],
         'fields' => [],
     ]);
-    
+
     expect($content)->toContain('https://example.com')
         ->and($content)->toContain('https://test.com');
 });
@@ -49,7 +47,7 @@ test('template generator includes fields in spider', function () {
             'price' => '.price',
         ],
     ]);
-    
+
     expect($content)->toContain('title')
         ->and($content)->toContain('price')
         ->and($content)->toContain('h1')
@@ -58,7 +56,7 @@ test('template generator includes fields in spider', function () {
 
 test('template generator can generate middleware content', function () {
     $content = $this->generator->generateMiddleware('TestMiddleware', 'request');
-    
+
     expect($content)->toContain('class TestMiddleware')
         ->and($content)->toContain('RequestMiddlewareInterface')
         ->and($content)->toContain('handleRequest');
@@ -66,7 +64,7 @@ test('template generator can generate middleware content', function () {
 
 test('template generator can generate processor content', function () {
     $content = $this->generator->generateProcessor('TestProcessor');
-    
+
     expect($content)->toContain('class TestProcessor')
         ->and($content)->toContain('ItemProcessorInterface')
         ->and($content)->toContain('processItem');
@@ -74,7 +72,7 @@ test('template generator can generate processor content', function () {
 
 test('template generator can generate exporter content', function () {
     $content = $this->generator->generateExporter('TestExporter');
-    
+
     expect($content)->toContain('class TestExporter')
         ->and($content)->toContain('ExporterInterface')
         ->and($content)->toContain('export');

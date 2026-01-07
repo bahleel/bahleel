@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('duration_seconds')->nullable();
             $table->string('status'); // running, completed, failed
             $table->timestamps();
-            
+
             $table->index('spider_name');
             $table->index('status');
         });

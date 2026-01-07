@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 class SpiderManager
 {
     protected string $spidersPath;
+
     protected string $namespace = 'Spiders';
 
     public function __construct()
@@ -29,7 +30,8 @@ class SpiderManager
     public function getSpiderPath(string $name): string
     {
         $name = Str::studly($name);
-        return $this->spidersPath . '/' . $name . '.php';
+
+        return $this->spidersPath.'/'.$name.'.php';
     }
 
     /**
@@ -38,7 +40,8 @@ class SpiderManager
     public function getSpiderClass(string $name): string
     {
         $name = Str::studly($name);
-        return $this->namespace . '\\' . $name;
+
+        return $this->namespace.'\\'.$name;
     }
 
     /**
@@ -46,7 +49,7 @@ class SpiderManager
      */
     public function all(): array
     {
-        if (!File::isDirectory($this->spidersPath)) {
+        if (! File::isDirectory($this->spidersPath)) {
             return [];
         }
 
@@ -70,7 +73,7 @@ class SpiderManager
         $class = $this->getSpiderClass($name);
         $path = $this->getSpiderPath($name);
 
-        if (!File::exists($path)) {
+        if (! File::exists($path)) {
             return null;
         }
 
@@ -86,7 +89,7 @@ class SpiderManager
     {
         $path = $this->getSpiderPath($name);
 
-        if (!File::exists($path)) {
+        if (! File::exists($path)) {
             return false;
         }
 
@@ -100,23 +103,23 @@ class SpiderManager
     {
         $path = $this->getSpiderPath($name);
 
-        if (!File::exists($path)) {
+        if (! File::exists($path)) {
             return null;
         }
 
         $content = File::get($path);
-        
+
         // Extract start URLs using regex
         preg_match('/public array \$startUrls = \[(.*?)\];/s', $content, $matches);
         $startUrls = $matches[1] ?? '';
 
         // Extract middleware
         preg_match('/public array \$downloaderMiddleware = \[(.*?)\];/s', $content, $matches);
-        $middleware = !empty($matches[1]);
+        $middleware = ! empty($matches[1]);
 
         // Extract item processors
         preg_match('/public array \$itemProcessors = \[(.*?)\];/s', $content, $matches);
-        $processors = !empty($matches[1]);
+        $processors = ! empty($matches[1]);
 
         return [
             'name' => $name,

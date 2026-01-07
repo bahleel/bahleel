@@ -7,18 +7,18 @@ use App\Models\ScrapedItem;
 use LaravelZero\Framework\Commands\Command;
 
 use function Laravel\Prompts\select;
-use function Laravel\Prompts\text;
 
 class ExportCsvCommand extends Command
 {
     protected $signature = 'export:csv {spider? : Spider name} {--output= : Output file path}';
+
     protected $description = 'Export scraped data to CSV format';
 
     public function handle(CsvExporter $exporter): int
     {
         $spiderName = $this->argument('spider');
 
-        if (!$spiderName) {
+        if (! $spiderName) {
             $spiders = ScrapedItem::select('spider_name')
                 ->distinct()
                 ->pluck('spider_name')
@@ -26,6 +26,7 @@ class ExportCsvCommand extends Command
 
             if (empty($spiders)) {
                 $this->warn('No data found in database.');
+
                 return self::SUCCESS;
             }
 
@@ -39,15 +40,16 @@ class ExportCsvCommand extends Command
 
         if ($items->isEmpty()) {
             $this->warn("No data found for spider: {$spiderName}");
+
             return self::SUCCESS;
         }
 
         // Prepare output path
-        $outputPath = $this->option('output') ?? storage_path('exports/' . $spiderName . '_' . date('Y-m-d_His') . '.csv');
+        $outputPath = $this->option('output') ?? storage_path('exports/'.$spiderName.'_'.date('Y-m-d_His').'.csv');
 
         // Ensure directory exists
         $dir = dirname($outputPath);
-        if (!is_dir($dir)) {
+        if (! is_dir($dir)) {
             mkdir($dir, 0755, true);
         }
 
@@ -58,6 +60,7 @@ class ExportCsvCommand extends Command
                 $row['url'] = $item->url;
             }
             $row['scraped_at'] = $item->created_at->toDateTimeString();
+
             return $row;
         });
 
@@ -65,10 +68,12 @@ class ExportCsvCommand extends Command
         if ($exporter->export($data, $outputPath)) {
             $this->info("✓ Exported {$items->count()} items to:");
             $this->line("  {$outputPath}");
+
             return self::SUCCESS;
         }
 
         $this->error('Failed to export data.');
+
         return self::FAILURE;
     }
 }

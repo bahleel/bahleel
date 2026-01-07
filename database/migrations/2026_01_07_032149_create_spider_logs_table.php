@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('message');
             $table->json('context')->nullable();
             $table->timestamps();
-            
+
             $table->index('spider_run_id');
             $table->index('level');
         });

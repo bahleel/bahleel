@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\File;
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 beforeEach(function () {
-    $this->spiderManager = new SpiderManager();
+    $this->spiderManager = new SpiderManager;
 });
 
 afterEach(function () {
@@ -22,7 +22,7 @@ test('list spiders command shows existing spiders', function () {
     $path = $this->spiderManager->getSpiderPath('QuickTestSpider');
     File::ensureDirectoryExists(dirname($path));
     File::put($path, '<?php namespace Spiders; use RoachPHP\Spider\BasicSpider; class QuickTestSpider extends BasicSpider {}');
-    
+
     $this->artisan('spider:list')
         ->expectsOutputToContain('QuickTestSpider')
         ->assertSuccessful();
@@ -33,4 +33,3 @@ test('list command shows available commands', function () {
         ->expectsOutputToContain('Spider Management')
         ->assertSuccessful();
 });
-

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
 class TemplateGenerator
@@ -56,7 +56,7 @@ class TemplateGenerator
     {
         $directory = dirname($path);
 
-        if (!File::isDirectory($directory)) {
+        if (! File::isDirectory($directory)) {
             File::makeDirectory($directory, 0755, true);
         }
 
@@ -70,9 +70,9 @@ class TemplateGenerator
     {
         // Remove extra blank lines
         $code = preg_replace("/\n{3,}/", "\n\n", $code);
-        
+
         // Ensure file ends with newline
-        if (!str_ends_with($code, "\n")) {
+        if (! str_ends_with($code, "\n")) {
             $code .= "\n";
         }
 
