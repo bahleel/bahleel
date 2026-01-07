@@ -238,7 +238,7 @@ class ExampleSpider extends BasicSpider
 }
 ```
 
-## � Debugging Your Excavation
+## 🔍 Debugging Your Excavation
 
 Enable verbose output to see every detail:
 
@@ -348,7 +348,7 @@ public array $downloaderMiddleware = [
 ];
 ```
 
-## � Testing
+## 🧪 Testing
 
 Bahleel includes a comprehensive test suite using Pest PHP.
 
